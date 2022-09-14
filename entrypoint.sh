@@ -46,4 +46,4 @@ java -jar /app/tunnelizer.jar \
 --ssh.user=$SSH_USER \
 --ssh.private-key=file:$SSH_PRIVATE_KEY \
 --logging.level.com.jcraft.jsch=$LOG_LEVEL_LIB \
---logging.level.com.frijofabio=$LOG_LEVEL_APP
+--logging.level.org.github.wolfetti=$LOG_LEVEL_APP
