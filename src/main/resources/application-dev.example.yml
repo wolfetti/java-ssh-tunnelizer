@@ -1,0 +1,35 @@
+# ==============================================================================
+#                               DEVELOPERS NOTE
+# ==============================================================================
+# Copy this file to a file called application-dev.yml in this folder.
+# this file is ignored by git, and you can configure here all the stuff for
+# local testing. If you want, you can also insert in this folder a file named
+# 'private.key' wich contains your SSH private key. This file is also ignored
+# by git. Every parameter is commented with is functions, however this is a 
+# very simple application and there is not so much to say :) 
+# ==============================================================================
+
+# Remote service to tunnelize
+tunnel:
+    
+    # Host IP address
+    host: 1.2.3.4
+        
+    # Port to tunnelize. This port is also exposed on local host.
+    port: 1234
+  
+# SSH Connection parameters.
+ssh:
+    
+    # SSH host IP address or hostname
+    host: 2.3.4.5
+        
+    # SSH port (defaults to 22)
+    #port: 22
+        
+    # SSH username
+    user: myawesomeuser
+        
+    # SSH private key path 
+    # (it wull be a Spring Resource. defaults to classpath:private.key)
+    #private-key: classpath:private.key
