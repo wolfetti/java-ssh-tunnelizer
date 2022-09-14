@@ -25,5 +25,7 @@ jobs:
               clean package
       - name: Build the latest Docker image
         run: docker build . --file Dockerfile --tag wolfetti/java-ssh-tunnelizer:latest
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DK_REGISTRY_PASS }} | docker login -u ${{ secrets.DK_REGISTRY_USER }} --password-stdin
       - name: Push the latest Docker image
         run: docker push wolfetti/java-ssh-tunnelizer:latest
