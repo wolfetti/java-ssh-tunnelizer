@@ -25,9 +25,11 @@ jobs:
               clean package
       - name: Build the tagged Docker image
         run: docker build . --file Dockerfile --tag wolfetti/java-ssh-tunnelizer:${{ env.RELEASE_VERSION }}
-      - name: Push the tagged Docker image
-        run: docker push wolfetti/java-ssh-tunnelizer:${{ env.RELEASE_VERSION }}
       - name: Build the stable Docker image
         run: docker build . --file Dockerfile --tag wolfetti/java-ssh-tunnelizer:stable
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DK_REGISTRY_PASS }} | docker login -u ${{ secrets.DK_REGISTRY_USER }} --password-stdin
+      - name: Push the tagged Docker image
+        run: docker push wolfetti/java-ssh-tunnelizer:${{ env.RELEASE_VERSION }}
       - name: Push the stable Docker image
         run: docker push wolfetti/java-ssh-tunnelizer:stable
