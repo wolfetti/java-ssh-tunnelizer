@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 jobs:
-  package:
+  package-and-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,9 +23,6 @@ jobs:
             && mvn --no-transfer-progress \
               --batch-mode \
               clean package
-  publish:
-    runs-on: ubuntu-latest
-    steps:
       - name: Build the tagged Docker image
         run: docker build . --file Dockerfile --tag wolfetti/java-ssh-tunnelizer:${{ env.RELEASE_VERSION }}
       - name: Push the tagged Docker image
