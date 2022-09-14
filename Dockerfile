@@ -1,6 +1,5 @@
 FROM adoptopenjdk:11-jre
 RUN addgroup --system --gid 9999 dockeruser && adduser --system --home /app --uid 9999 --shell /bin/sh --ingroup dockeruser dockeruser
-COPY ./src/main/resources /app/config
 COPY ./entrypoint.sh /app/entrypoint.sh
 COPY ./target/*.jar /app/tunnelizer.jar
 RUN chown -R dockeruser:dockeruser /app
