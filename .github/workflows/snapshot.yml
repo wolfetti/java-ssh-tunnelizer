@@ -9,7 +9,7 @@ on:
     branches:
       - main
 jobs:
-  publish:
+  package:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,3 +23,10 @@ jobs:
             mvn --no-transfer-progress \
               --batch-mode \
               clean package
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build the latest Docker image
+        run: docker build . --file Dockerfile --tag wolfetti/java-ssh-tunnelizer:latest
+      - name: Push the latest Docker image
+        run: docker push wolfetti/java-ssh-tunnelizer:latest
