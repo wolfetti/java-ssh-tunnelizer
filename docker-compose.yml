@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  local-development:
+    build: .
+    restart: unless-stopped
+    image: wolfetti/java-ssh-tunnelizer:dev
+    ports:
+        # Set this vars to correct port values in environment
+        # WJST_HOST_EXPOSED => localhost exposed port
+        # WJST_CT_EXPOSED ===> container exposed port
+        - "${WJST_HOST_EXPOSED:-2345}:${WJST_CT_EXPOSED:-2345}"
+    volumes:
+      - ./src/main/resources:/app/ssh:ro
+    environment:
+      DEV_MODE: local

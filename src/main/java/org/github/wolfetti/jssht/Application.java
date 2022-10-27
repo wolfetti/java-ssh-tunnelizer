@@ -58,7 +58,7 @@ public class Application {
         
         Resource pkey = context.getResource(sshPrivateKey);
         if(!pkey.exists()){
-            throw new IllegalStateException("Private key not found in classpath: " + sshPrivateKey);
+            throw new IllegalStateException("Private key not found: " + sshPrivateKey);
         }
     
         Properties sessionConfig = new Properties(); 
