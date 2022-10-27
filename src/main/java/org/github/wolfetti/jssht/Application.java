@@ -21,6 +21,11 @@ import org.springframework.core.io.Resource;
 @Slf4j
 @SpringBootApplication
 public class Application {
+
+    public static void main(String[] args) {
+        JSch.setLogger(new Slf4jJschLogger());
+        SpringApplication.run(Application.class, args);
+    }
     
     @Autowired
     private ApplicationContext context;
@@ -43,9 +48,14 @@ public class Application {
     @Value("${tunnel.port}")
     private int tunnelPort;
     
+    @Value("${tunnel.local-port:${tunnel.port}}")
+    private int tunnelLocalPort;
+    
     @PostConstruct
     public void openTunnel() throws JSchException, IOException {
-        log.info("Opening SSH tunnel to {}:{} through {}", tunnelHost, tunnelPort, sshHost);
+        String tunnelInfo = createTunnelInfo();
+        log.info("Opening SSH tunnel {}", tunnelInfo);
+        
         Resource pkey = context.getResource(sshPrivateKey);
         if(!pkey.exists()){
             throw new IllegalStateException("Private key not found in classpath: " + sshPrivateKey);
@@ -81,11 +91,21 @@ public class Application {
             tunnelPort
         );
         
-        log.info("SSH tunnel to {}:{} through {} is up and running", tunnelHost, tunnelPort, sshHost);
+        log.info("SSH tunnel {} is up and running", tunnelInfo);
     }
 
-    public static void main(String[] args) {
-        JSch.setLogger(new Slf4jJschLogger());
-        SpringApplication.run(Application.class, args);
+    private String createTunnelInfo() {
+        return new StringBuilder()
+           .append("to ")
+           .append(tunnelHost)
+           .append(":")
+           .append(tunnelPort)
+           .append(" through ")
+           .append(sshHost)
+           .append(":")
+           .append(sshPort)
+           .append(" on local port ")
+           .append(tunnelLocalPort)
+        .toString();
     }
 }
