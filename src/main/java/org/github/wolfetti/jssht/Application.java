@@ -89,7 +89,7 @@ public class Application {
         log.debug("Creating tunnel...");
         session.setPortForwardingL(
             "0.0.0.0", 
-            tunnelPort, 
+            tunnelLocalPort, 
             tunnelHost, 
             tunnelPort
         );
