@@ -60,6 +60,9 @@ public class Application {
         if(!pkey.exists()){
             throw new IllegalStateException("Private key not found: " + sshPrivateKey);
         }
+        if (!pkey.isReadable()){
+            throw new IllegalStateException("Private key not readable: " + sshPrivateKey);
+        }
     
         Properties sessionConfig = new Properties(); 
         sessionConfig.put("StrictHostKeyChecking", "no");
