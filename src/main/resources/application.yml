@@ -4,3 +4,4 @@ logging:
     level:
         org.github.wolfetti: INFO
         com.jcraft.jsch: ERROR
+        org.springframework: ERROR

@@ -68,8 +68,13 @@ else
     CMDLINE="--ssh.user=${SSH_USER} ${CMDLINE}"
 
     # logging
-    CMDLINE="--logging.level.com.jcraft.jsch=${LOG_LEVEL_LIB} ${CMDLINE}"
-    CMDLINE="--logging.level.org.github.wolfetti=${LOG_LEVEL_APP} ${CMDLINE}"
+    if [[ "$LOG_LEVEL_LIB" != "ERROR" ]]; then
+        CMDLINE="--logging.level.com.jcraft.jsch=${LOG_LEVEL_LIB} ${CMDLINE}"
+        CMDLINE="--logging.level.org.springframework=${LOG_LEVEL_LIB} ${CMDLINE}"
+    fi
+    if [[ "$LOG_LEVEL_APP" != "INFO" ]]; then
+        CMDLINE="--logging.level.org.github.wolfetti=${LOG_LEVEL_APP} ${CMDLINE}"
+    fi
 fi
  
 # Application startup
