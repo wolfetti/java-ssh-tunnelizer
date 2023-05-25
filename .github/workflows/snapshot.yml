@@ -29,6 +29,8 @@ jobs:
         run: echo ${{ secrets.DK_REGISTRY_PASS }} | docker login -u ${{ secrets.DK_REGISTRY_USER }} --password-stdin
       # - name: Push the latest Docker image
       #   run: docker push wolfetti/java-ssh-tunnelizer:latest
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
