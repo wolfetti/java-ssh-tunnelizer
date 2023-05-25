@@ -78,10 +78,11 @@ else
 fi
  
 # Application startup
+JARFILE=$(/bin/ls /app/*.jar)
 if [[ "" != "$DEV_MODE" ]]; then
     echo ""
-    echo "Executing command: java -jar /app/tunnelizer.jar ${CMDLINE}"
+    echo "Executing command: [java -jar $JARFILE $CMDLINE]"
     echo ""
 fi
 
-java -jar /app/tunnelizer.jar $CMDLINE
+java -jar $JARFILE $CMDLINE

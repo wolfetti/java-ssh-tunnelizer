@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; apt-get update && apt-get -y upgrade 
 
 RUN addgroup --system --gid 9999 dockeruser && adduser --system --home /app --uid 9999 --shell /bin/sh --ingroup dockeruser dockeruser
 COPY ./entrypoint.sh /app/entrypoint.sh
-COPY ./target/*.jar /app/tunnelizer.jar
+COPY ./target/*.jar /app/
 RUN chown -R dockeruser:dockeruser /app
 RUN chmod 755 /app/entrypoint.sh
 USER dockeruser:dockeruser
