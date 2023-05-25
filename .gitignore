@@ -222,3 +222,4 @@ buildNumber.properties
 
 # Visio autosave temporary files
 **/*.~vsd*
+.vscode/settings.json
