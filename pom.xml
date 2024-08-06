@@ -13,7 +13,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>org.github.wolfetti.jssht.Application</exec.mainClass>
         <exec.args>--spring.profiles.active=dev</exec.args>
-        <spring-boot.version>2.7.3</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
     </properties>
 
     <dependencies>
