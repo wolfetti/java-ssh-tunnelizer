@@ -14,8 +14,8 @@ RUN chown -R dockeruser:dockeruser /app
 RUN chmod 755 /app/entrypoint.sh
 USER dockeruser:dockeruser
 WORKDIR /app
-ENV SSH_PORT 22
-ENV SSH_PRIVATE_KEY "file:/app/private.key"
-ENV LOG_LEVEL_APP "INFO"
-ENV LOG_LEVEL_LIB "ERROR"
+ENV SSH_PORT=22
+ENV SSH_PRIVATE_KEY="file:/app/private.key"
+ENV LOG_LEVEL_APP="INFO"
+ENV LOG_LEVEL_LIB="ERROR"
 ENTRYPOINT ["/app/entrypoint.sh"]
