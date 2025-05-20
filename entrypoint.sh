@@ -45,37 +45,21 @@ if [[ "" == "$DEV_MODE" ]]; then
     fi
 fi
 
-CMDLINE=""
-
 # Local dev mode, use the included dev profile (application-dev.yml)
 if [[ "local" == "$DEV_MODE" ]]; then
-    CMDLINE="--ssh.private-key=file:/app/ssh/private.key ${CMDLINE}"
+    CMDLINE="--ssh.private-key=file:/app/ssh/private.key"
     CMDLINE="--spring.profiles.active=dev ${CMDLINE}"
 
 # Normal mode
 else 
-    # tunnel
-    if [[ "true" == "$MULTI_TUNNEL_ENABLED" ]]; then
-        CMDLINE="--multi-tunnel.enabled=true ${CMDLINE}"
-        CMDLINE="--spring.config.location=classpath:application.yml,file:${MULTI_TUNNEL_CONF_PATH} ${CMDLINE}"
-    else
-        CMDLINE="--tunnel.host=${TUNNEL_HOST} ${CMDLINE}"
-        CMDLINE="--tunnel.port=${TUNNEL_PORT} ${CMDLINE}"
-
-        if [[ "" != "$TUNNEL_LOCAL_PORT" ]]; then
-            CMDLINE="--tunnel.local-port=${TUNNEL_LOCAL_PORT} ${CMDLINE}"
-        fi
-    fi
 
     # SSH
-    CMDLINE="--ssh.host=${SSH_HOST} ${CMDLINE}"
+    CMDLINE="--ssh.private-key=file:${SSH_PRIVATE_KEY}"
 
-    if [[ "22" != "$SSH_PORT" ]]; then
-        CMDLINE="--ssh.port=${SSH_PORT} ${CMDLINE}"
+    # tunnel
+    if [[ "true" == "$MULTI_TUNNEL_ENABLED" ]]; then
+        CMDLINE="--spring.config.location=classpath:application.yml,file:${MULTI_TUNNEL_CONF_PATH} ${CMDLINE}"
     fi
-
-    CMDLINE="--ssh.private-key=file:${SSH_PRIVATE_KEY} ${CMDLINE}"
-    CMDLINE="--ssh.user=${SSH_USER} ${CMDLINE}"
 
     # logging
     if [[ "$LOG_LEVEL_LIB" != "ERROR" ]]; then
