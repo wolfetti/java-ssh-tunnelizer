@@ -9,7 +9,9 @@
 # very simple application and there is not so much to say :) 
 # ==============================================================================
 
-# Remote service to tunnelize
+# ---------------------------------------
+# Single tunnel configuration
+# ---------------------------------------
 tunnel:
     
     # Host IP address
@@ -22,8 +24,33 @@ tunnel:
     # Port to expose tunnel on localhost.
     # Default value is ${tunnel.port}
     #local-port: 2345
+
+# ---------------------------------------
+# Multiple tunnel configuration
+# ---------------------------------------
+multi-tunnel:
   
+  # Enable or disable multiple tunnel
+  enabled: false
+  
+  # List for multiple tunnel creation.
+  # configuration keys are the same of single
+  # tunnel configuration.
+  tunnels:
+    
+  # First host tunnel
+  - host: 1.2.3.4
+    port: 1234
+    #local-port: 2344
+    
+  # Second host tunnel
+  - host: 1.2.3.5
+    port: 1235
+    #local-port: 2345
+  
+# ---------------------------------------
 # SSH Connection parameters.
+# ---------------------------------------
 ssh:
     
     # SSH host IP address or hostname
