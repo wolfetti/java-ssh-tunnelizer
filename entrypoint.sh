@@ -15,10 +15,15 @@ if [[ "" == "$DEV_MODE" ]]; then
     chech_env_var SSH_PORT
     chech_env_var SSH_HOST
     chech_env_var SSH_PRIVATE_KEY
-    chech_env_var TUNNEL_HOST
-    chech_env_var TUNNEL_PORT
     chech_env_var LOG_LEVEL_APP
     chech_env_var LOG_LEVEL_LIB
+
+    if [[ "true" == "$MULTI_TUNNEL_ENABLED" ]]; then
+        chech_env_var MULTI_TUNNEL_CONF_PATH
+    else
+        chech_env_var TUNNEL_HOST
+        chech_env_var TUNNEL_PORT
+    fi
 
     if [[ "$OK" == "0" ]]; then
         echo "."
@@ -50,11 +55,16 @@ if [[ "local" == "$DEV_MODE" ]]; then
 # Normal mode
 else 
     # tunnel
-    CMDLINE="--tunnel.host=${TUNNEL_HOST} ${CMDLINE}"
-    CMDLINE="--tunnel.port=${TUNNEL_PORT} ${CMDLINE}"
+    if [[ "true" == "$MULTI_TUNNEL_ENABLED" ]]; then
+        CMDLINE="--multi-tunnel.enabled=true ${CMDLINE}"
+        CMDLINE="--spring.config.location=classpath:application.yml,file:${MULTI_TUNNEL_CONF_PATH} ${CMDLINE}"
+    else
+        CMDLINE="--tunnel.host=${TUNNEL_HOST} ${CMDLINE}"
+        CMDLINE="--tunnel.port=${TUNNEL_PORT} ${CMDLINE}"
 
-    if [[ "" != "$TUNNEL_LOCAL_PORT" ]]; then
-        CMDLINE="--tunnel.local-port=${TUNNEL_LOCAL_PORT} ${CMDLINE}"
+        if [[ "" != "$TUNNEL_LOCAL_PORT" ]]; then
+            CMDLINE="--tunnel.local-port=${TUNNEL_LOCAL_PORT} ${CMDLINE}"
+        fi
     fi
 
     # SSH
