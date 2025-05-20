@@ -1,15 +1,36 @@
-version: "3.9"
 services:
   local-development:
     build: .
     restart: unless-stopped
     image: wolfetti/java-ssh-tunnelizer:dev
     ports:
-        # Set this vars to correct port values in environment
-        # WJST_HOST_EXPOSED => localhost exposed port
-        # WJST_CT_EXPOSED ===> container exposed port
-        - "${WJST_HOST_EXPOSED:-2345}:${WJST_CT_EXPOSED:-2345}"
+      - "12345:12345"
     volumes:
       - ./src/main/resources:/app/ssh:ro
     environment:
       DEV_MODE: local
+    profiles:
+      - dev
+      
+  local-test:
+    build: .
+    restart: unless-stopped
+    image: wolfetti/java-ssh-tunnelizer:dev
+    ports:
+        - "12345:12345"
+        - "12346:12346"
+        - "12347:12347"
+        - "12348:12348"
+        - "12349:12349"
+    volumes:
+      - ./src/test/docker/ssh:/app/ssh:ro
+      - ./src/test/docker/conf/tunnels.yml:/tunnels.yml:ro
+    environment:
+      - MULTI_TUNNEL_ENABLED=true
+      - MULTI_TUNNEL_CONF_PATH=/tunnels.yml
+      - SSH_PRIVATE_KEY=/app/ssh/private.key
+      - SSH_HOST=${TEST_SSH_HOST}
+      - SSH_PORT=${TEST_SSH_PORT}
+      - SSH_USER=${TEST_SSH_USER}
+    profiles:
+      - test

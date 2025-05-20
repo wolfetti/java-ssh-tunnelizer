@@ -1,3 +1,8 @@
+# Docker local environment
+/.env
+src/test/docker/ssh/private.key
+src/test/docker/conf/tunnels.yml
+
 # Development file for local testing
 src/main/resources/private.key
 src/main/resources/application-dev.yml
