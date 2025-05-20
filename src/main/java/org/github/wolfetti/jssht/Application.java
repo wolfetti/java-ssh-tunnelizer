@@ -58,7 +58,7 @@ public class Application {
         log.info("Reading private key file...");
         jsch.addIdentity(pkey.getFile().getAbsolutePath());
         
-        log.info("Creating session...");
+        log.debug("Creating session...");
         Session session = jsch.getSession(
             ssh.getUser(),
             ssh.getHost(),
@@ -68,7 +68,7 @@ public class Application {
         session.setTimeout(5000);
         log.debug("Session created");
         
-        log.info("Connecting to remote host...");
+        log.info("Connecting to remote host {} on port {}...", ssh.getHost(), ssh.getPort());
         session.connect();
         
         log.debug("Creating tunnels...");
@@ -96,10 +96,6 @@ public class Application {
            .append(t.getHost())
            .append(":")
            .append(t.getPort())
-           .append(" through ")
-           .append(ssh.getHost())
-           .append(":")
-           .append(ssh.getPort())
            .append(" on local port ")
            .append(t.getLocalPort())
         .toString();
