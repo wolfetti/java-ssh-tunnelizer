@@ -16,7 +16,7 @@ jobs:
           distribution: 'temurin'
       - name: Create package
         run: |
-            mvn \
+            mvn --no-transfer-progress \
               --batch-mode \
               versions:set \
               -DnewVersion=${{ env.RELEASE_VERSION }} \
