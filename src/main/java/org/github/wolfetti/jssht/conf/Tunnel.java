@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
-import org.github.wolfetti.jssht.validation.ValidIpAddress;
 import org.github.wolfetti.jssht.validation.ValidPortNumber;
+import org.github.wolfetti.jssht.validation.ValidIpAddressOrHostname;
 
 @Setter
 @ToString
@@ -22,7 +22,7 @@ public class Tunnel {
 
     @Getter
     @NotBlank
-    @ValidIpAddress
+    @ValidIpAddressOrHostname
     private String host;
 
     @Getter

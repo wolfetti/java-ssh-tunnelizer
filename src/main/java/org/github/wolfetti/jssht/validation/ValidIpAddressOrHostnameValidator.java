@@ -1,11 +1,12 @@
 package org.github.wolfetti.jssht.validation;
 
+import com.google.common.net.InetAddresses;
+import com.google.common.net.InternetDomainName;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.validator.routines.InetAddressValidator;
 
-public class ValidIpAddressValidator implements ConstraintValidator<ValidIpAddress, String>{
+public class ValidIpAddressOrHostnameValidator implements ConstraintValidator<ValidIpAddressOrHostname, String>{
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
@@ -13,6 +14,8 @@ public class ValidIpAddressValidator implements ConstraintValidator<ValidIpAddre
             return true;
         }
         
-        return InetAddressValidator.getInstance().isValid(value);
+        return InetAddresses.isInetAddress(value)
+            || InternetDomainName.isValid(value)
+        ;
     }
 }

@@ -8,11 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.github.wolfetti.jssht.validation.ValidIpAddress;
 import org.github.wolfetti.jssht.validation.ValidPortNumber;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
+import org.github.wolfetti.jssht.validation.ValidIpAddressOrHostname;
 
 @Setter
 @Getter
@@ -32,7 +32,7 @@ public class SSHDefinitions {
     private String user;
     
     @NotBlank
-    @ValidIpAddress
+    @ValidIpAddressOrHostname
     private String host;
     
     @NotNull

@@ -7,12 +7,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ValidIpAddressValidator.class)
+@Constraint(validatedBy = ValidIpAddressOrHostnameValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-public @interface ValidIpAddress {
+public @interface ValidIpAddressOrHostname {
 
-    String message() default "Invalid IP address: ${validatedValue}";
+    String message() default "Invalid IP address or hostname: ${validatedValue}";
 
     Class<?>[] groups() default {};
 
