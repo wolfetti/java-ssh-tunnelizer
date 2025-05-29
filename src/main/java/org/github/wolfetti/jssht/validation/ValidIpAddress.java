@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface ValidIpAddress {
 
-    String message() default "Ip or hostname is invalid: ${validatedValue}";
+    String message() default "Invalid IP address: ${validatedValue}";
 
     Class<?>[] groups() default {};
 
