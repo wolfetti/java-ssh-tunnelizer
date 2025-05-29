@@ -1,7 +1,5 @@
 package org.github.wolfetti.jssht.conf;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -12,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 import org.github.wolfetti.jssht.validation.ValidIpAddress;
+import org.github.wolfetti.jssht.validation.ValidPortNumber;
 
 @Setter
 @ToString
@@ -28,12 +27,10 @@ public class Tunnel {
 
     @Getter
     @NotNull
-    @Min(1)
-    @Max(65535)
+    @ValidPortNumber
     private Integer port;
 
-    @Min(1)
-    @Max(65535)
+    @ValidPortNumber
     private Integer localPort;
 
     public int getLocalPort() {
