@@ -14,11 +14,11 @@
 # ---------------------------------------
 tunnel:
     
-    # Host IP address
+    # Host IP address or hostname
     host: 1.2.3.4
         
     # Port to tunnelize.
-    # This port is also exposed on localhost if ${tunnel.local-port} is not set
+    # This port is also exposed if ${tunnel.local-port} is not set
     port: 1234
     
     # Port to expose tunnel on localhost.
