@@ -72,7 +72,7 @@ multi-tunnel:
   tunnels:
     - host: service-a.internal.svc # Remote destination host
       port: 8080 # Remote destination port
-      local-port: 12542
+      local-port: 12542 # Local port to bind. If omitted, port is used.
     - host: service-b.internal.svc
       port: 3306
 ```
