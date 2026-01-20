@@ -2,7 +2,7 @@
 FROM ghcr.io/graalvm/native-image-community:21 AS builder
 
 # Installa dipendenze per la build
-RUN microdnf install findutils glibc-langpack-en
+RUN microdnf install -y findutils glibc-langpack-en
 
 # Imposta le variabili d'ambiente per il locale
 ENV LANG=en_US.UTF-8
