@@ -8,13 +8,13 @@ quarkus:
 
   # Gestione dei log
   log:
-    level: ${LOG_LEVEL_LIB:INFO}
+    level: ${LOG_LEVEL_LIB:ERROR}
     category:
       "org.github.wolfetti":
         min-level: TRACE
         level: ${LOG_LEVEL_APP:INFO}
       "com.jcraft.jsch":
-        level: ${LOG_LEVEL_LIB:INFO}
+        level: ${LOG_LEVEL_LIB:ERROR}
 
   # Retrocompatibilità per il caricamento del file esterno (MULTI_TUNNEL_CONF_PATH)
   config:
