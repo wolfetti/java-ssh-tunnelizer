@@ -9,11 +9,11 @@ WORKDIR /build
 # Copia file per la cache delle dipendenze
 COPY .mvn/ .mvn/
 COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
+RUN ./mvnw --no-transfer-progress dependency:go-offline
 
 # Copia sorgenti e compila il binario nativo
 COPY src ./src
-RUN ./mvnw native:compile -Pnative -DskipTests
+RUN ./mvnw --no-transfer-progress native:compile -Pnative -DskipTests
 
 # --- STAGE 2: Runtime minimale (Debian Stable Slim) ---
 FROM debian:stable-slim AS runtime
@@ -35,7 +35,7 @@ COPY ./entrypoint.sh /app/entrypoint.sh
 
 # Permessi corretti
 RUN chown -R dockeruser:dockeruser /app && \
-    chmod 755 /app/entrypoint.sh /app/application
+    chmod 755 /app/entrypoint.sh /app/ssh-tunnelizer
 
 USER dockeruser:dockeruser
 
