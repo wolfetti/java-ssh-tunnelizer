@@ -19,7 +19,7 @@ RUN ./mvnw --no-transfer-progress native:compile -Pnative -DskipTests
 FROM debian:stable-slim AS runtime
 
 # Installa zlib (necessaria per binari nativi GraalVM) e pulisce subito la cache
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
