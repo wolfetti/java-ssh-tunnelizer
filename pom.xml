@@ -137,7 +137,16 @@
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
                 <quarkus.native.reflection.include-patterns>com.jcraft.jsch.**</quarkus.native.reflection.include-patterns>
-                <quarkus.native.additional-build-args>--initialize-at-run-time=java.net.Inet4Address,--initialize-at-run-time=com.jcraft.jsch.PortWatcher</quarkus.native.additional-build-args>
+                <quarkus.native.reflection.all-public-constructors>true</quarkus.native.reflection.all-public-constructors>
+                <quarkus.native.reflection.all-public-methods>true</quarkus.native.reflection.all-public-methods>
+                <quarkus.native.additional-build-args>
+                    --initialize-at-run-time=java.net.InetAddress,
+                    --initialize-at-run-time=java.net.Inet4Address,
+                    --initialize-at-run-time=com.jcraft.jsch.JSch,
+                    --initialize-at-run-time=com.jcraft.jsch.Util,
+                    --initialize-at-run-time=com.jcraft.jsch.Session,
+                    --initialize-at-run-time=com.jcraft.jsch.PortWatcher
+                </quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>
