@@ -35,21 +35,6 @@
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.jsch</groupId>
-            <artifactId>quarkus-jsch</artifactId>
-            <version>3.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.mwiede</groupId>
-                    <artifactId>jsch</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.jcraft</groupId>
-                    <artifactId>jsch</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>com.github.mwiede</groupId>
             <artifactId>jsch</artifactId>
             <version>2.27.7</version>
@@ -151,9 +136,12 @@
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
-                <quarkus.native.additional-build-args>--initialize-at-run-time=com.jcraft.jsch</quarkus.native.additional-build-args>
                 <quarkus.index-dependency.jsch.group-id>com.github.mwiede</quarkus.index-dependency.jsch.group-id>
                 <quarkus.index-dependency.jsch.artifact-id>jsch</quarkus.index-dependency.jsch.artifact-id>
+                <quarkus.native.additional-build-args>
+                    --initialize-at-run-time=com.jcraft.jsch
+                    --enable-all-security-services
+                </quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>

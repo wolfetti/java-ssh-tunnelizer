@@ -21,16 +21,6 @@ quarkus:
   # External configuration file loading (MULTI_TUNNEL_CONF_PATH)
   config:
     locations: "${MULTI_TUNNEL_CONF_PATH:application.yaml}"
-  
-  # Native build management
-  native:
-    
-   # Register required JSch packages for reflection in native mode
-   reflective-hierarchy:
-     packages:
-       - com.jcraft.jsch
-       - com.jcraft.jsch.jce
-       - com.jcraft.jsch.jcraft
 
 # ==============================================================================
 # SSH PARAMETERS
