@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Creazione utente di sicurezza (shell /bin/false come discusso)
-RUN addgroup --system --gid 9999 dockeruser && \
-    adduser --system --home /app --uid 9999 --shell /bin/false --ingroup dockeruser dockeruser
+RUN groupadd --system --gid 999 dockeruser && \
+    useradd --system --uid 999 --gid dockeruser --shell /bin/false --home-dir /app dockeruser
 
 WORKDIR /app
 
