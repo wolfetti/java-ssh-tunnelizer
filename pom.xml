@@ -141,6 +141,7 @@
                 <quarkus.native.additional-build-args>
                     --initialize-at-run-time=com.jcraft.jsch
                     --enable-all-security-services
+                    --allow-incomplete-classpath
                 </quarkus.native.additional-build-args>
             </properties>
         </profile>
