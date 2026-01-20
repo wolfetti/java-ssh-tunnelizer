@@ -72,4 +72,11 @@ else
 fi
  
 # Application startup
-/app/ssh-tunnelizer
+JARFILE=$(/bin/ls /app/*.jar)
+if [[ "" != "$DEV_MODE" ]]; then
+    echo ""
+    echo "Executing command: [java -jar $JARFILE $CMDLINE]"
+    echo ""
+fi
+
+java -jar $JARFILE $CMDLINE
