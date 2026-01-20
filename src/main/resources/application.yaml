@@ -1,12 +1,14 @@
 # ==============================================================================
-# CONFIGURAZIONE QUARKUS JSSHT (2026 Native Ready)
+# QUARKUS JSSHT CONFIGURATION (2026 Native Ready)
 # ==============================================================================
 quarkus:
+  
+  # Wolfetti's banner
   banner:
     path: banner.txt
     enabled: true
 
-  # Gestione dei log
+  # Log Management
   log:
     level: ${LOG_LEVEL_LIB:ERROR}
     category:
@@ -16,12 +18,22 @@ quarkus:
       "com.jcraft.jsch":
         level: ${LOG_LEVEL_LIB:ERROR}
 
-  # Retrocompatibilità per il caricamento del file esterno (MULTI_TUNNEL_CONF_PATH)
+  # External configuration file loading (MULTI_TUNNEL_CONF_PATH)
   config:
     locations: "${MULTI_TUNNEL_CONF_PATH:application.yaml}"
+  
+  # Native build management
+  native:
+    
+   # Register required JSch packages for reflection in native mode
+   reflective-hierarchy:
+     packages:
+       - com.jcraft.jsch
+       - com.jcraft.jsch.jce
+       - com.jcraft.jsch.jcraft
 
 # ==============================================================================
-# PARAMETRI SSH
+# SSH PARAMETERS
 # ==============================================================================
 ssh:
   host: ${SSH_HOST}
@@ -29,15 +41,14 @@ ssh:
   private-key: ${SSH_PRIVATE_KEY:private.key}
 
 # ==============================================================================
-# CONFIGURAZIONE SINGLE TUNNEL (Attiva se multi-tunnel.enabled: false)
+# SINGLE TUNNEL CONFIGURATION (Active if multi-tunnel.enabled: false)
 # ==============================================================================
 tunnel:
   host: ${TUNNEL_HOST}
   port: ${TUNNEL_PORT}
 
 # ==============================================================================
-# CONFIGURAZIONE MULTI TUNNEL (Attiva se multi-tunnel.enabled: true)
+# MULTI TUNNEL CONFIGURATION (Active if multi-tunnel.enabled: true)
 # ==============================================================================
 multi-tunnel:
   enabled: ${MULTI_TUNNEL_ENABLED:false}
-

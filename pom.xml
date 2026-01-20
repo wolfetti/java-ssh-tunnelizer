@@ -137,6 +137,8 @@
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
                 <quarkus.native.additional-build-args>--initialize-at-run-time=com.jcraft.jsch</quarkus.native.additional-build-args>
+                <quarkus.index-dependency.jsch.group-id>com.github.mwiede</quarkus.index-dependency.jsch.group-id>
+                <quarkus.index-dependency.jsch.artifact-id>jsch</quarkus.index-dependency.jsch.artifact-id>
             </properties>
         </profile>
     </profiles>
