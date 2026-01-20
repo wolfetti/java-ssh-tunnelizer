@@ -55,8 +55,9 @@ jobs:
       - name: Export digest
         run: |
           mkdir -p /tmp/digests
+          # Estraiamo solo la parte esadecimale dopo 'sha256:'
           digest="${{ steps.build.outputs.digest }}"
-          touch "/tmp/digests/${digest// integrity:/-}"
+          echo "${digest}" > "/tmp/digests/${digest#sha256:}"
           
       - name: Upload digest
         uses: actions/upload-artifact@v4
