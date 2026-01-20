@@ -18,7 +18,7 @@ quarkus:
 
   # Retrocompatibilità per il caricamento del file esterno (MULTI_TUNNEL_CONF_PATH)
   config:
-    locations: "file:${MULTI_TUNNEL_CONF_PATH:application.yaml}"
+    locations: "${MULTI_TUNNEL_CONF_PATH:application.yaml}"
 
 # ==============================================================================
 # PARAMETRI SSH
@@ -44,5 +44,5 @@ multi-tunnel:
   enabled: ${MULTI_TUNNEL_ENABLED:false}
   # La lista dei tunnel viene solitamente fornita dal file esterno 
   # caricato tramite MULTI_TUNNEL_CONF_PATH
-  tunnels: []
+#  tunnels: []
 
