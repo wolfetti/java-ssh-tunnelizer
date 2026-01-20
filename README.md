@@ -45,6 +45,8 @@ services:
 ```
 
 ## Configuration Reference
+Below are the available environment variables. Variables without a default value are mandatory."
+
 ### Environment Variables
 
 | Variable | Description | Default |
@@ -58,7 +60,8 @@ services:
 | **TUNNEL_HOST** | (Single mode) Remote target destination host. | |
 | **TUNNEL_PORT** | (Single mode) Remote target destination port. | |
 | **TUNNEL_LOCAL_PORT** | (Single mode) Local port to bind. If omitted, TUNNEL_PORT is used. | |
-| **TZ** | Container timezone. | |
+| **LOG_LEVEL_APP** | Application log level. | INFO |
+| **LOG_LEVEL_LIB** | External libraries log level | ERROR |
 
 
 ### Multi-Tunnel YAML Schema
