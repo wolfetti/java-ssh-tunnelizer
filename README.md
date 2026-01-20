@@ -45,7 +45,7 @@ services:
 ```
 
 ## Configuration Reference
-Below are the available environment variables. Variables without a default value are mandatory."
+Below are the available environment variables. Variables without a default value are mandatory.
 
 ### Environment Variables
 
@@ -56,10 +56,10 @@ Below are the available environment variables. Variables without a default value
 | **SSH_USER** | SSH login username. | |
 | **SSH_PRIVATE_KEY** | Path to the private key **inside** the container. | |
 | **MULTI_TUNNEL_ENABLED** | Set to `true` to enable multi-tunnel mode. | `false` |
-| **MULTI_TUNNEL_CONF_PATH** | Path to the YAML configuration file **inside** the container. | |
+| **MULTI_TUNNEL_CONF_PATH** | (Multi-Tunnel Mode) Path to the YAML configuration file **inside** the container. | |
 | **TUNNEL_HOST** | (Single mode) Remote target destination host. | |
 | **TUNNEL_PORT** | (Single mode) Remote target destination port. | |
-| **TUNNEL_LOCAL_PORT** | (Single mode) Local port to bind. If omitted, TUNNEL_PORT is used. | |
+| **TUNNEL_LOCAL_PORT** | (Single mode) Local port to bind. If omitted, TUNNEL_PORT is used. | ${TUNNEL_PORT} |
 | **LOG_LEVEL_APP** | Application log level. | INFO |
 | **LOG_LEVEL_LIB** | External libraries log level | ERROR |
 
