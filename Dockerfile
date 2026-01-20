@@ -21,6 +21,7 @@ FROM debian:stable-slim AS runtime
 # Installa zlib (necessaria per binari nativi GraalVM) e pulisce subito la cache
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     zlib1g \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Creazione utente di sicurezza (shell /bin/false come discusso)
