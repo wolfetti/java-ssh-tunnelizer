@@ -140,7 +140,7 @@
                 <quarkus.index-dependency.jsch.artifact-id>jsch</quarkus.index-dependency.jsch.artifact-id>
                 <quarkus.native.reflection.include-patterns>com.jcraft.jsch.**</quarkus.native.reflection.include-patterns>
                 <quarkus.native.additional-build-args>
-                    --initialize-at-run-time=com.jcraft.jsch
+                    --initialize-at-run-time=com.jcraft.jsch,java.net.Inet4Address,java.net.InetAddress
                     --enable-all-security-services
                     --allow-incomplete-classpath
                     -H:+UnlockExperimentalVMOptions
