@@ -135,11 +135,13 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
+                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21</quarkus.native.builder-image>
+    
+                <!-- INDISPENSABILE: sblocca la crittografia nel binario nativo -->
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
-                <quarkus.native.additional-build-args>
-                    --future-defaults=run-time-initialize-security-providers 
-                    --allow-incomplete-classpath
-                </quarkus.native.additional-build-args>
+
+                <quarkus.native.additional-build-args>--allow-incomplete-classpath,-H:+EnableAllSecurityServices</quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>
