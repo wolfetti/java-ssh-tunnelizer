@@ -2,11 +2,11 @@ package org.github.wolfetti.ssh.cdi;
 
 import io.quarkus.arc.lookup.LookupIfProperty;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Singleton;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
-import jakarta.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,13 +25,13 @@ public class TunnelDefinitionsProducer {
     @LookupIfProperty(name = "multi-tunnel.enabled", stringValue = "true")
     public TunnelDefinitions multiTunnel(MultiTunnelConfiguration config, Validator validator) {
         List<Tunnel> tunnels = config.tunnels().stream()
-            .map(t -> new Tunnel(t.host(), t.port(), t.localPort().orElse(null)))
+            .map(tconf -> new Tunnel(tconf.host(), tconf.port(), tconf.localPort().orElse(null)))
             .toList();
 
         Set<ConstraintViolation<Tunnel>> violations = new HashSet();
 
         for (Tunnel t : tunnels) {
-            var tmp = new ArrayList<>(validator.validate(t, Tunnel.class));
+            var tmp = new ArrayList<>(validator.validate(t));
             if (CollectionUtils.isNotEmpty(tmp)) {
                 violations.addAll(tmp);
             }

@@ -18,7 +18,6 @@ import org.github.wolfetti.ssh.dto.TunnelDefinitions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.github.wolfetti.ssh.dto.SSHConnection;
-import org.github.wolfetti.ssh.util.Slf4jJschLogger;
 
 @ApplicationScoped 
 public class SSHLauncher {
@@ -34,7 +33,6 @@ public class SSHLauncher {
      * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
      */
     void onStart(@Observes StartupEvent ev) throws JSchException, IOException {
-        JSch.setLogger(new Slf4jJschLogger());
         connect();
     }
 
