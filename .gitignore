@@ -45,5 +45,6 @@ nb-configuration.xml
 .certs/
 
 # Dev files
-/src/main/resources/application.yml
 /private.key
+/src/main/resources/application-dev.yaml
+/src/main/resources/application-dev.yml

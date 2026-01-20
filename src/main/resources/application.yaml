@@ -1,0 +1,48 @@
+# ==============================================================================
+# CONFIGURAZIONE QUARKUS JSSHT (2026 Native Ready)
+# ==============================================================================
+quarkus:
+  banner:
+    path: banner.txt
+    enabled: true
+
+  # Gestione dei log
+  log:
+    level: ${LOG_LEVEL_LIB:INFO}
+    category:
+      "org.github.wolfetti":
+        min-level: TRACE
+        level: ${LOG_LEVEL_APP:INFO}
+      "com.jcraft.jsch":
+        level: ${LOG_LEVEL_LIB:INFO}
+
+  # Retrocompatibilità per il caricamento del file esterno (MULTI_TUNNEL_CONF_PATH)
+  config:
+    locations: "file:${MULTI_TUNNEL_CONF_PATH:application.yaml}"
+
+# ==============================================================================
+# PARAMETRI SSH
+# ==============================================================================
+ssh:
+  host: ${SSH_HOST}
+  port: ${SSH_PORT:22}
+  user: ${SSH_USER}
+  private-key: ${SSH_PRIVATE_KEY:private.key}
+
+# ==============================================================================
+# CONFIGURAZIONE SINGLE TUNNEL (Attiva se multi-tunnel.enabled: false)
+# ==============================================================================
+tunnel:
+  host: ${TUNNEL_HOST:localhost}
+  port: ${TUNNEL_PORT:8080}
+  local-port: ${TUNNEL_LOCAL_PORT:12542}
+
+# ==============================================================================
+# CONFIGURAZIONE MULTI TUNNEL (Attiva se multi-tunnel.enabled: true)
+# ==============================================================================
+multi-tunnel:
+  enabled: ${MULTI_TUNNEL_ENABLED:false}
+  # La lista dei tunnel viene solitamente fornita dal file esterno 
+  # caricato tramite MULTI_TUNNEL_CONF_PATH
+  tunnels: []
+
