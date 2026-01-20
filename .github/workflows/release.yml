@@ -14,6 +14,11 @@ jobs:
             runner: ubuntu-latest-arm64
     
     runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
+      actions: write
+      
     steps:
       - uses: actions/checkout@v4
       
@@ -49,8 +54,8 @@ jobs:
           platforms: ${{ matrix.platform }}
           # Usiamo i digest per caricare le architetture separatamente senza taggare ancora
           outputs: type=image,name=wolfetti/java-ssh-tunnelizer,push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=gha,scope=${{ matrix.platform }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Export digest
         run: |
