@@ -10,6 +10,9 @@ quarkus:
 
   # Log Management
   log:
+    console:
+      enable: true
+      format: "%d{yyyy-MM-dd HH:mm:ss} | %-5p | %s%e%n"
     level: ${LOG_LEVEL_LIB:ERROR}
     category:
       "org.github.wolfetti":
