@@ -1,0 +1,68 @@
+# ==============================================================================
+#                               DEVELOPERS NOTE
+# ==============================================================================
+# Copy this file to a file called application-dev.yml in this folder.
+# this file is ignored by git, and you can configure here all the stuff for
+# local testing. If you want, you can also insert in this folder a file named
+# 'private.key' wich contains your SSH private key. This file is also ignored
+# by git. Every parameter is commented with is functions, however this is a 
+# very simple application and there is not so much to say :) 
+# ==============================================================================
+
+# ---------------------------------------
+# Single tunnel configuration
+# ---------------------------------------
+tunnel:
+    
+    # Host IP address or hostname
+    host: 1.2.3.4
+        
+    # Port to tunnelize.
+    # This port is also exposed if ${tunnel.local-port} is not set
+    port: 1234
+    
+    # Port to expose tunnel on localhost.
+    # Default value is ${tunnel.port}
+    #local-port: 2345
+
+# ---------------------------------------
+# Multiple tunnel configuration
+# ---------------------------------------
+multi-tunnel:
+  
+  # Enable or disable multiple tunnel
+  enabled: false
+  
+  # List for multiple tunnel creation.
+  # configuration keys are the same of single
+  # tunnel configuration.
+  tunnels:
+    
+  # First host tunnel
+  - host: 1.2.3.4
+    port: 1234
+    #local-port: 2344
+    
+  # Second host tunnel
+  - host: 1.2.3.5
+    port: 1235
+    #local-port: 2345
+  
+# ---------------------------------------
+# SSH Connection parameters.
+# ---------------------------------------
+ssh:
+    
+    # SSH host IP address or hostname
+    host: 2.3.4.5
+        
+    # SSH port
+    # Default value is 22
+    #port: 22
+        
+    # SSH username
+    user: myawesomeuser
+        
+    # SSH private key SpringResource compatible path 
+    # Default value is "classpath:private.key"
+    #private-key: classpath:private.key
