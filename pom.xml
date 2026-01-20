@@ -35,9 +35,9 @@
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.jsch</groupId>
-            <artifactId>quarkus-jsch</artifactId>
-            <version>3.1.2</version>
+            <groupId>com.github.mwiede</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.2.23</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -135,6 +135,7 @@
             <properties>
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
             </properties>
         </profile>
     </profiles>
