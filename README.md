@@ -78,3 +78,24 @@ multi-tunnel:
 
 - **SSH Keys**: Mount the directory containing your private keys and reference the full path in `SSH_PRIVATE_KEY`.
 - **Configuration**: In multi-tunnel mode, mount the directory containing your YAML file and reference the full path in `MULTI_TUNNEL_CONF_PATH`.
+
+## Development
+
+For local development and testing purposes, you can configure the application by placing your credentials and configuration files directly in the project structure:
+
+1.  **SSH Key**: Place your `private.key` file in the project root.
+2.  **Configuration**: Create an `application-dev.yml` (or `.yaml`) file in `src/main/resources`. You can use the template provided in `src/main/examples` as a starting point.
+
+> [!CAUTION]
+> **Security Warning**: These files are strictly for local use and are automatically ignored by Git (via `.gitignore`). **Never** attempt to force-commit these files or hardcode sensitive credentials into the repository.
+
+### Example of `private.key`
+The private key file must be in OpenSSH format. Its content should look like this:
+
+```text
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACD6S/D274S6v6F4g/7Zz4X9B2G5R/k8F1K9L2O8M/4X9AAAALi4uLi4uLi
+... (rest of the key) ...
+-----END OPENSSH PRIVATE KEY-----
+```
