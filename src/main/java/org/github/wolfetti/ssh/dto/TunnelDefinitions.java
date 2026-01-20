@@ -1,4 +1,4 @@
-package org.github.wolfetti.ssh.conf;
+package org.github.wolfetti.ssh.dto;
 
 import java.util.ArrayList;
 import java.util.Iterator;

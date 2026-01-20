@@ -8,7 +8,7 @@
 # by git. Every parameter is commented with is functions, however this is a 
 # very simple application and there is not so much to say :) 
 # ==============================================================================
-
+        
 # ---------------------------------------
 # Single tunnel configuration
 # ---------------------------------------
@@ -64,5 +64,5 @@ ssh:
     user: myawesomeuser
         
     # SSH private key SpringResource compatible path 
-    # Default value is "classpath:private.key"
-    #private-key: classpath:private.key
+    # Default value is "./private.key"
+    #private-key: private.key

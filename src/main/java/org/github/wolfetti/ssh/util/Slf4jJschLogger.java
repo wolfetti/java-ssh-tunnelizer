@@ -4,7 +4,6 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Logger;
 
 /**
- *
  * @author Fabio Frijo
  */
 public class Slf4jJschLogger implements Logger {

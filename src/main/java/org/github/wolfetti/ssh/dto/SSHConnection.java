@@ -1,13 +1,17 @@
-package org.github.wolfetti.ssh.conf;
+package org.github.wolfetti.ssh.dto;
 
-import io.smallrye.config.ConfigMapping;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.github.wolfetti.ssh.validation.ValidIpAddressOrHostname;
 import org.github.wolfetti.ssh.validation.ValidPortNumber;
 
-@ConfigMapping(prefix = "multi-tunnel")
-public class Tunnel {
+public class SSHConnection {
+
+    @NotBlank
+    private String privateKey = "private.key";
+
+    @NotBlank
+    private String user;
 
     @NotBlank
     @ValidIpAddressOrHostname
@@ -15,13 +19,22 @@ public class Tunnel {
 
     @NotNull
     @ValidPortNumber
-    private Integer port;
+    private Integer port = 22;
 
-    @ValidPortNumber
-    private Integer localPort;
+    public String getPrivateKey() {
+        return privateKey;
+    }
 
-    public void setLocalPort(Integer localPort) {
-        this.localPort = localPort;
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getHost() {
@@ -38,13 +51,5 @@ public class Tunnel {
 
     public void setPort(Integer port) {
         this.port = port;
-    }
-
-    public int getLocalPort() {
-        if (localPort == null) {
-            return port;
-        }
-
-        return localPort;
     }
 }

@@ -1,9 +1,14 @@
 package org.github.wolfetti.ssh.conf;
 
 import io.smallrye.config.ConfigMapping;
-import jakarta.enterprise.inject.Default;
+import io.smallrye.config.WithName;
+import java.util.Optional;
 
-@Default
 @ConfigMapping(prefix = "tunnel")
-public class SingleTunnelConfiguration extends Tunnel {
+public interface SingleTunnelConfiguration {
+    String host();
+    Integer port();
+    
+    @WithName("local-port")
+    Optional<Integer> localPort();
 }

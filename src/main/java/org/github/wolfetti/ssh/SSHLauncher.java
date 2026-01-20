@@ -6,28 +6,29 @@ import com.jcraft.jsch.Session;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
-import org.github.wolfetti.ssh.conf.SSHDefinitions;
-import org.github.wolfetti.ssh.conf.Tunnel;
-import org.github.wolfetti.ssh.conf.TunnelDefinitions;
-import org.github.wolfetti.ssh.util.Slf4jJschLogger;
+import org.github.wolfetti.ssh.dto.Tunnel;
+import org.github.wolfetti.ssh.dto.TunnelDefinitions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.github.wolfetti.ssh.dto.SSHConnection;
+import org.github.wolfetti.ssh.util.Slf4jJschLogger;
 
 @ApplicationScoped 
 public class SSHLauncher {
     private static final Logger log = LoggerFactory.getLogger(SSHLauncher.class);
     
     @Inject
-    TunnelDefinitions tunnels;
+    Instance<TunnelDefinitions> tunnels;
 
     @Inject
-    SSHDefinitions ssh;
+    SSHConnection ssh;
 
     /**
      * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
@@ -71,7 +72,7 @@ public class SSHLauncher {
         session.connect();
 
         log.debug("Creating tunnels...");
-        tunnels.forEach(t -> {
+        tunnels.get().forEach(t -> {
             log.info("Opening SSH tunnel {}...", createTunnelInfo(t));
             try {
                 session.setPortForwardingL(

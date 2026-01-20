@@ -46,4 +46,4 @@ nb-configuration.xml
 
 # Dev files
 /src/main/resources/application.yml
-/src/main/resources/private.key
+/private.key
