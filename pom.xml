@@ -136,7 +136,10 @@
                 <skipITs>false</skipITs>
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
-                <quarkus.native.additional-build-args>--enable-all-security-services</quarkus.native.additional-build-args>
+                <quarkus.native.additional-build-args>
+                    --future-defaults=run-time-initialize-security-providers 
+                    --allow-incomplete-classpath
+                </quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>
