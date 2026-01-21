@@ -137,11 +137,15 @@
                 <quarkus.native.enabled>true</quarkus.native.enabled>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21</quarkus.native.builder-image>
-    
-                <!-- INDISPENSABILE: sblocca la crittografia nel binario nativo -->
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
 
-                <quarkus.native.additional-build-args>--allow-incomplete-classpath,-H:+EnableAllSecurityServices</quarkus.native.additional-build-args>
+                <quarkus.native.additional-build-args>
+                    --initialize-at-run-time=sun.security.ec.SunEC
+                    --initialize-at-run-time=sun.security.ec.CurveDB
+                    --allow-incomplete-classpath
+                    -H:+UnlockExperimentalVMOptions
+                    -H:AdditionalSecurityProviders=sun.security.ec.SunEC
+                </quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>
