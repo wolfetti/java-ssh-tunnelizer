@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Security;
 import java.util.Properties;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.github.wolfetti.ssh.dto.Tunnel;
 import org.github.wolfetti.ssh.dto.TunnelDefinitions;
 import org.slf4j.Logger;
@@ -24,6 +26,17 @@ import org.github.wolfetti.ssh.util.Slf4jJschLogger;
 public class SSHLauncher {
     private static final Logger log = LoggerFactory.getLogger(SSHLauncher.class);
     
+    static {
+        JSch.setLogger(new Slf4jJschLogger());
+        
+        log.debug("Registering BouncyCastle Provider...");
+        Security.removeProvider("SunEC");
+        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+            Security.insertProviderAt(new BouncyCastleProvider(), 1);
+        }
+        log.debug("Security Providers initialized.");
+    }
+    
     @Inject
     Instance<TunnelDefinitions> tunnels;
 
@@ -34,7 +47,6 @@ public class SSHLauncher {
      * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
      */
     void onStart(@Observes StartupEvent ev) throws JSchException, IOException {
-        JSch.setLogger(new Slf4jJschLogger());
         connect();
     }
 
