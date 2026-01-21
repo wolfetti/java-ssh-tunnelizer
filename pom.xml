@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
+            <version>4.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
@@ -146,11 +146,7 @@
 
                 <quarkus.native.additional-build-args>
                     --initialize-at-run-time=org.bouncycastle
-                    --initialize-at-run-time=sun.security.ec.SunEC
-                    --initialize-at-run-time=sun.security.ec.CurveDB
                     --allow-incomplete-classpath
-                    -H:+UnlockExperimentalVMOptions
-                    -H:AdditionalSecurityProviders=sun.security.ec.SunEC
                 </quarkus.native.additional-build-args>
             </properties>
         </profile>
