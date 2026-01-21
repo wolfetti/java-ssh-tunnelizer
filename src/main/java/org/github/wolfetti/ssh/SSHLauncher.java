@@ -35,25 +35,44 @@ public class SSHLauncher {
     @Inject
     SSHConnection ssh;
 
-    /**
-     * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
-     */
-    void onStart(@Observes StartupEvent ev) throws JSchException, IOException {
-        
-        // Logger setup
-        JSch.setLogger(new Slf4jJschLogger());
-
-        // This is for native image that complains with ssh security providers
+    private void initForNative() {
         Security.removeProvider("SunEC");
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
             Security.insertProviderAt(new BouncyCastleProvider(), 1);
         }
-        JSch.setConfig("ecdh-sha2-nistp256", com.jcraft.jsch.jce.ECDH256.class.getName());
-        JSch.setConfig("ecdh-sha2-nistp384", com.jcraft.jsch.jce.ECDH384.class.getName());
-        JSch.setConfig("ecdh-sha2-nistp521", com.jcraft.jsch.jce.ECDH521.class.getName());
-        JSch.setConfig("ssh-ed25519", com.jcraft.jsch.jce.SignatureEd25519.class.getName());
-        JSch.setConfig("random", com.jcraft.jsch.jce.Random.class.getName());
 
+        // Algoritmi nel pacchetto base com.jcraft.jsch
+        JSch.setConfig("diffie-hellman-group-exchange-sha256", "com.jcraft.jsch.DHGEX256");
+        JSch.setConfig("diffie-hellman-group14-sha256", "com.jcraft.jsch.DH14");
+
+        // Algoritmi nel pacchetto com.jcraft.jsch.jce
+        JSch.setConfig("ecdh-sha2-nistp256", "com.jcraft.jsch.jce.ECDH256");
+        JSch.setConfig("ecdh-sha2-nistp384", "com.jcraft.jsch.jce.ECDH384");
+        JSch.setConfig("ecdh-sha2-nistp521", "com.jcraft.jsch.jce.ECDH521");
+        JSch.setConfig("ssh-ed25519", "com.jcraft.jsch.jce.SignatureEd25519");
+        JSch.setConfig("random", "com.jcraft.jsch.jce.Random");
+
+        // Firme RSA SHA-2
+        JSch.setConfig("rsa-sha2-256", "com.jcraft.jsch.jce.SignatureRSASHA256");
+        JSch.setConfig("rsa-sha2-512", "com.jcraft.jsch.jce.SignatureRSASHA512");
+
+        // Cifrari Moderni
+        JSch.setConfig("aes128-gcm@openssh.com", "com.jcraft.jsch.jce.AES128GCM");
+        JSch.setConfig("aes256-gcm@openssh.com", "com.jcraft.jsch.jce.AES256GCM");
+    }
+
+    /**
+     * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
+     */
+    void onStart(@Observes StartupEvent ev) throws JSchException, IOException {
+
+        // Logger setup
+        JSch.setLogger(new Slf4jJschLogger());
+
+        // This is for native image that complains with ssh security providers
+        initForNative();
+
+        // Start connection
         connect();
     }
 

@@ -148,9 +148,9 @@
                 <quarkus.native.reflection.all-public-methods>true</quarkus.native.reflection.all-public-methods>
                 <quarkus.native.additional-build-args>
                     --initialize-at-run-time=org.bouncycastle
+                    --initialize-at-run-time=com.jcraft.jsch.PortWatcher
                     --allow-incomplete-classpath
                     -H:AdditionalSecurityProviders=org.bouncycastle.jce.provider.BouncyCastleProvider
-                    -H:+IncludeAllSecurityServices
                 </quarkus.native.additional-build-args>
             </properties>
         </profile>
