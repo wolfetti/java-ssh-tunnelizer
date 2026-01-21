@@ -37,12 +37,12 @@ public class SSHLauncher {
 
     private void initForNative() {
         Security.removeProvider("SunEC");
-        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+        if (Security.getProvider("BC") == null) {
             Security.insertProviderAt(new BouncyCastleProvider(), 1);
         }
 
         // Algoritmi nel pacchetto base com.jcraft.jsch
-        JSch.setConfig("diffie-hellman-group-exchange-sha256", "com.jcraft.jsch.DHGEX256");
+        /*JSch.setConfig("diffie-hellman-group-exchange-sha256", "com.jcraft.jsch.DHGEX256");
         JSch.setConfig("diffie-hellman-group14-sha256", "com.jcraft.jsch.DH14");
 
         // Algoritmi nel pacchetto com.jcraft.jsch.jce
@@ -58,7 +58,7 @@ public class SSHLauncher {
 
         // Cifrari Moderni
         JSch.setConfig("aes128-gcm@openssh.com", "com.jcraft.jsch.jce.AES128GCM");
-        JSch.setConfig("aes256-gcm@openssh.com", "com.jcraft.jsch.jce.AES256GCM");
+        JSch.setConfig("aes256-gcm@openssh.com", "com.jcraft.jsch.jce.AES256GCM");*/
     }
 
     /**
@@ -90,6 +90,8 @@ public class SSHLauncher {
         Properties sessionConfig = new Properties();
         sessionConfig.put("StrictHostKeyChecking", "no");
         sessionConfig.put("ServerAliveInterval", "60");
+        sessionConfig.put("kex", "ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256");
+        sessionConfig.put("server_host_key", "ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,rsa-sha2-512,rsa-sha2-256");
 
         JSch jsch = new JSch();
 
