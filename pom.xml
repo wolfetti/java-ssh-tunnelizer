@@ -143,7 +143,9 @@
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21</quarkus.native.builder-image>
                 <quarkus.native.enable-security-services>true</quarkus.native.enable-security-services>
-
+                <quarkus.native.reflection.include-patterns>org.bouncycastle.**,com.jcraft.jsch.**</quarkus.native.reflection.include-patterns>
+                <quarkus.native.reflection.all-public-constructors>true</quarkus.native.reflection.all-public-constructors>
+                <quarkus.native.reflection.all-public-methods>true</quarkus.native.reflection.all-public-methods>
                 <quarkus.native.additional-build-args>
                     --initialize-at-run-time=org.bouncycastle
                     --allow-incomplete-classpath
