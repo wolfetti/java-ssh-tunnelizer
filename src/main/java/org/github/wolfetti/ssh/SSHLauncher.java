@@ -3,6 +3,7 @@ package org.github.wolfetti.ssh;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import io.quarkus.runtime.Startup;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -22,10 +23,12 @@ import org.slf4j.LoggerFactory;
 import org.github.wolfetti.ssh.dto.SSHConnection;
 import org.github.wolfetti.ssh.util.Slf4jJschLogger;
 
-@ApplicationScoped 
+@Startup
+@ApplicationScoped
 public class SSHLauncher {
+
     private static final Logger log = LoggerFactory.getLogger(SSHLauncher.class);
-    
+
     @Inject
     Instance<TunnelDefinitions> tunnels;
 
@@ -36,15 +39,21 @@ public class SSHLauncher {
      * In Quarkus, il 'main' è implicito. Usiamo StartupEvent per eseguire codice all'avvio.
      */
     void onStart(@Observes StartupEvent ev) throws JSchException, IOException {
-        JSch.setLogger(new Slf4jJschLogger());
         
-        log.debug("Registering BouncyCastle Provider...");
+        // Logger setup
+        JSch.setLogger(new Slf4jJschLogger());
+
+        // This is for native image that complains with ssh security providers
         Security.removeProvider("SunEC");
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
             Security.insertProviderAt(new BouncyCastleProvider(), 1);
         }
-        log.debug("Security Providers initialized.");
-        
+        JSch.setConfig("ecdh-sha2-nistp256", com.jcraft.jsch.jce.ECDH256.class.getName());
+        JSch.setConfig("ecdh-sha2-nistp384", com.jcraft.jsch.jce.ECDH384.class.getName());
+        JSch.setConfig("ecdh-sha2-nistp521", com.jcraft.jsch.jce.ECDH521.class.getName());
+        JSch.setConfig("ssh-ed25519", com.jcraft.jsch.jce.SignatureEd25519.class.getName());
+        JSch.setConfig("random", com.jcraft.jsch.jce.Random.class.getName());
+
         connect();
     }
 
